@@ -1,0 +1,17 @@
+﻿{% extends 'base.html' %}
+
+{% block body %}
+<div class="form">
+    <form action="/" method="POST">
+        <label for="number">番号</label>
+        <input type="text" name="number">
+        <label for="title">曲名</label>
+        <input type="text" name="title">
+        <label for="composer">作曲者</label>
+        <input type="text" name="composer">
+        <label for="arranger">編曲者</label>
+        <input type="text" name="arranger">
+        <input type="submit" value="Create">
+    </form>
+</div>
+{% endblock %}
