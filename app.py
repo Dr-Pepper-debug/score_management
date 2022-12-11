@@ -30,9 +30,31 @@ def index():
         db.session.commit()
         return redirect('/')
 
-@app.route('/add')
+@app.route('/add', methods=['GET', 'POST'])
 def create():
-    return render_template('add.html')
+    if request.method == 'GET':
+        return render_template('add.html')
+    if request.method == 'POST':
+        form_number = request.form.get("number")  # str
+        form_title = request.form.get("title")  # str
+        form_composer = request.form.get("composer")  # str
+        form_arranger = request.form.get("arranger")  # str
+
+        score = Post(
+            number = form_number,
+            title = form_title,
+            composer = form_composer,
+            arranger = form_arranger
+        )
+        db.session.add(score)
+        db.session.commit()
+        return render_template('add.html')
+        
+
+@app.route('/score_list')
+def score_list():
+    scores = Post.query.all()
+    return render_template('score_list.html', scores=scores)
 
 if __name__ == "__main__":
     app.run(debug=True)
