@@ -1,4 +1,4 @@
-﻿from flask import Flask, render_template, request, redirect
+﻿from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -55,6 +55,13 @@ def create():
 def score_list():
     scores = Post.query.all()
     return render_template('score_list.html', scores=scores)
+
+@app.route('/scores/<int:id>/delete', methods=['POST'])  
+def score_delete(id):  
+    score = Post.query.get(id)   
+    db.session.delete(score)  
+    db.session.commit()  
+    return redirect(url_for('score_list'))
 
 if __name__ == "__main__":
     app.run(debug=True)
